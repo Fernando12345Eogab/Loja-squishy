@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crie Seu Squishy Personalizado - É Real Uai. Inc</title>
+    <style>
+        /* --- style.css (Código CSS) --- */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff; /* Azul claro para o fundo */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff69b4; /* Rosa choque */
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        fieldset {
+            border: 2px solid #add8e6; /* Azul claro borda */
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: left;
+            background-color: #fbfdff;
+        }
+
+        legend {
+            font-weight: bold;
+            color: #00bfff; /* Azul mais forte */
+            padding: 0 10px;
+            font-size: 1.1em;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.2); /* Aumenta o tamanho dos inputs */
+            vertical-align: middle;
+        }
+
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical; /* Permite redimensionar verticalmente */
+            font-family: 'Arial', sans-serif;
+            font-size: 0.95em;
+        }
+
+        input[type="color"] {
+            width: 60px;
+            height: 30px;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            vertical-align: middle;
+            margin-top: 10px;
+        }
+
+        .total-price {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #4682b4; /* Azul aço */
+            margin: 30px 0;
+            padding: 15px;
+            background-color: #e6f2f9;
+            border-radius: 8px;
+            border: 1px dashed #aed6f1;
+        }
+
+        button[type="submit"] {
+            background-color: #32cd32; /* Verde limão */
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #228b22; /* Verde mais escuro */
+            transform: translateY(-2px);
+        }
+
+        #orderConfirmation {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e0ffff; /* Azul ciano claro */
+            border-radius: 10px;
+            border: 1px solid #00ced1;
+            color: #006064;
+        }
+
+        #orderConfirmation h2 {
+            color: #008b8b;
+            margin-top: 0;
+        }
+
+        .mail-button {
+            display: inline-block;
+            background-color: #ff4500; /* Laranja avermelhado */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .mail-button:hover {
+            background-color: #cc3700;
+        }
+
+        .warning {
+            font-size: 0.85em;
+            color: #dc143c; /* Vermelho carmesim */
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Monte o Seu Squishy!</h1>
+        <form id="squishyForm">
+            <fieldset>
+                <legend>1. Escolha o Tipo de Squishy:</legend>
+                <label>
+                    <input type="radio" name="squishyType" value="pao" checked> Pão
+                </label>
+                <label>
+                    <input type="radio" name="squishyType" value="biscoito"> Biscoito
+                </label>
+                <label>
+                    <input type="radio" name="squishyType" value="opiniao"> Minha Opinião (personalizado - +R$ 7,00)
+                </label>
+                <div id="customSquishyDetails" style="display: none;">
+                    <label for="customText">Descreva seu squishy personalizado:</label>
+                    <textarea id="customText" rows="3" placeholder="Ex: Um unicórnio sorridente, uma fatia de pizza..."></textarea>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>2. Escolha o Enchimento:</legend>
+                <label>
+                    <input type="radio" name="filling" value="sacola" checked> Sacola (+R$ 1,00)
+                </label>
+                <label>
+                    <input type="radio" name="filling" value="algodao"> Algodão (+R$ 2,00)
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend>3. Adicionais:</legend>
+                <label>
+                    <input type="checkbox" id="hasDurex"> Quer Laminação com Durex? (+R$ 2,00)
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend>4. Escolha a Cor Principal:</legend>
+                <input type="color" id="mainColor" value="#FFE4B5">
+            </fieldset>
+
+            <div class="total-price">
+                Total do seu Squishy: <span id="totalPrice">R$ 0,00</span>
+            </div>
+
+            <button type="submit">Finalizar Pedido!</button>
+        </form>
+
+        <div id="orderConfirmation" style="display: none;">
+            <h2>Seu Pedido Está Quase Lá!</h2>
+            <p>Para confirmar, clique no botão abaixo. Ele abrirá seu programa de e-mail padrão já com os detalhes do pedido preenchidos. Basta clicar em "Enviar" lá!</p>
+            <a id="mailToLink" href="#" target="_blank" class="mail-button">Abrir E-mail para Enviar Pedido</a>
+            <p class="warning">
+                **Atenção:** Este site não envia o e-mail diretamente. Ele apenas te ajuda a preencher!
+            </p>
+        </div>
+    </div>
+
+    <script>
+        /* --- script.js (Código JavaScript) --- */
+
+        // Preços base
+        const prices = {
+            squishyType: {
+                pao: 0,
+                biscoito: 0,
+                opiniao: 7.00
+            },
+            filling: {
+                sacola: 1.00,
+                algodao: 2.00
+            },
+            durex: 2.00 // Preço adicional para durex
+        };
+
+        // Elementos HTML
+        const squishyForm = document.getElementById('squishyForm');
+        const squishyTypeRadios = document.querySelectorAll('input[name="squishyType"]');
+        const fillingRadios = document.querySelectorAll('input[name="filling"]');
+        const hasDurexCheckbox = document.getElementById('hasDurex');
+        const mainColorInput = document.getElementById('mainColor');
+        const totalPriceSpan = document.getElementById('totalPrice');
+        const customSquishyDetailsDiv = document.getElementById('customSquishyDetails');
+        const customTextInput = document.getElementById('customText');
+        const orderConfirmationDiv = document.getElementById('orderConfirmation');
+        const mailToLink = document.getElementById('mailToLink');
+
+        // --- Funções ---
+
+        // Função para calcular e exibir o preço total
+        function calculateTotalPrice() {
+            let total = 0;
+
+            // Calcular preço do tipo de squishy
+            let selectedType = document.querySelector('input[name="squishyType"]:checked').value;
+            total += prices.squishyType[selectedType];
+
+            // Mostrar/esconder o campo de descrição personalizada
+            if (selectedType === 'opiniao') {
+                customSquishyDetailsDiv.style.display = 'block';
+            } else {
+                customSquishyDetailsDiv.style.display = 'none';
+                customTextInput.value = ''; // Limpa o texto se mudar de opinião
+            }
+
+            // Calcular preço do enchimento
+            let selectedFilling = document.querySelector('input[name="filling"]:checked').value;
+            total += prices.filling[selectedFilling];
+
+            // Adicionar preço do durex se selecionado
+            if (hasDurexCheckbox.checked) {
+                total += prices.durex;
+            }
+
+            totalPriceSpan.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`; // Formata para BRL
+        }
+
+        // Função para gerar os detalhes do pedido e o link mailto
+        function generateOrderDetails(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            let selectedType = document.querySelector('input[name="squishyType"]:checked').value;
+            let typeText = '';
+            if (selectedType === 'pao') {
+                typeText = 'Pão';
+            } else if (selectedType === 'biscoito') {
+                typeText = 'Biscoito';
+            } else {
+                typeText = `Personalizado: ${customTextInput.value || 'Não informado'}`;
+            }
+
+            let selectedFilling = document.querySelector('input[name="filling"]:checked').value;
+            let fillingText = selectedFilling === 'sacola' ? 'Sacola' : 'Algodão';
+
+            let durexText = hasDurexCheckbox.checked ? 'Sim' : 'Não';
+            let mainColor = mainColorInput.value;
+            let totalPrice = totalPriceSpan.textContent;
+
+            // Monta o corpo do e-mail
+            const emailBody = `
+                Novo Pedido de Squishy Personalizado!\n\n
+                --- DETALHES DO PEDIDO ---\n
+                Tipo de Squishy: ${typeText}\n
+                Enchimento: ${fillingText}\n
+                Laminação com Durex: ${durexText}\n
+                Cor Principal: ${mainColor}\n
+                --------------------------\n
+                Valor Total: ${totalPrice}\n\n
+                Por favor, entre em contato com o cliente para finalizar a compra!
+            `.replace(/\n\s+/g, '\n'); // Remove espaços extras antes das quebras de linha
+
+            // Seu email de destino - **COLOQUE SEU ENDEREÇO DE E-MAIL AQUI!**
+            const yourEmail = 'seuemail@gmail.com'; // <--- MUDE AQUI!
+
+            const subject = encodeURIComponent(`Pedido de Squishy - ${typeText}`);
+            const body = encodeURIComponent(emailBody);
+
+            mailToLink.href = `mailto:${yourEmail}?subject=${subject}&body=${body}`;
+
+            // Mostra a confirmação e o botão de email
+            squishyForm.style.display = 'none';
+            orderConfirmationDiv.style.display = 'block';
+        }
+
+        // --- Event Listeners ---
+
+        // Atualizar preço ao mudar as opções
+        squishyTypeRadios.forEach(radio => radio.addEventListener('change', calculateTotalPrice));
+        fillingRadios.forEach(radio => radio.addEventListener('change', calculateTotalPrice));
+        hasDurexCheckbox.addEventListener('change', calculateTotalPrice);
+        customTextInput.addEventListener('input', calculateTotalPrice); // Se mudar o texto, não muda o preço, mas pode ser útil para outras lógicas futuras
+
+        // Listener para exibir/esconder o campo de texto customizado
+        document.querySelector('input[value="opiniao"]').addEventListener('change', calculateTotalPrice);
+
+        // Enviar formulário
+        squishyForm.addEventListener('submit', generateOrderDetails);
+
+        // Calcular o preço inicial ao carregar a página
+        document.addEventListener('DOMContentLoaded', calculateTotalPrice);
+    </script>
+</body>
+</html>
