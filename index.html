@@ -166,7 +166,7 @@
                     <input type="radio" name="squishyType" value="biscoito"> Biscoito
                 </label>
                 <label>
-                    <input type="radio" name="squishyType" value="opiniao"> Minha Opinião (personalizado - +R$ 7,00)
+                    <input type="radio" name="squishyType" value="opiniao"> Minha Opinião (personalizado - +R$ 2,00)
                 </label>
                 <div id="customSquishyDetails" style="display: none;">
                     <label for="customText">Descreva seu squishy personalizado:</label>
@@ -221,7 +221,7 @@
             squishyType: {
                 pao: 0,
                 biscoito: 0,
-                opiniao: 7.00
+                opiniao: 2.00 // PREÇO DA OPINIÃO AJUSTADO PARA R$ 2,00
             },
             filling: {
                 sacola: 1.00,
@@ -246,6 +246,7 @@
 
         // Função para calcular e exibir o preço total
         function calculateTotalPrice() {
+            console.log("calculateTotalPrice foi chamada!"); // DEBUG: Verifica se a função está sendo chamada
             let total = 0;
 
             // Calcular preço do tipo de squishy
@@ -270,6 +271,7 @@
             }
 
             totalPriceSpan.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`; // Formata para BRL
+            console.log("Total atual:", total); // DEBUG: Mostra o valor calculado no console
         }
 
         // Função para gerar os detalhes do pedido e o link mailto
@@ -306,8 +308,8 @@
                 Por favor, entre em contato com o cliente para finalizar a compra!
             `.replace(/\n\s+/g, '\n'); // Remove espaços extras antes das quebras de linha
 
-            // Seu email de destino - **COLOQUE SEU ENDEREÇO DE E-MAIL AQUI!**
-            const yourEmail = 'seuemail@gmail.com'; // <--- MUDE AQUI!
+            // Seu email de destino - **pedritaajabuti@gmail.com**
+            const yourEmail = 'pedritaajabuti@gmail.com'; // <--- SEU EMAIL AQUI!
 
             const subject = encodeURIComponent(`Pedido de Squishy - ${typeText}`);
             const body = encodeURIComponent(emailBody);
@@ -325,16 +327,19 @@
         squishyTypeRadios.forEach(radio => radio.addEventListener('change', calculateTotalPrice));
         fillingRadios.forEach(radio => radio.addEventListener('change', calculateTotalPrice));
         hasDurexCheckbox.addEventListener('change', calculateTotalPrice);
-        customTextInput.addEventListener('input', calculateTotalPrice); // Se mudar o texto, não muda o preço, mas pode ser útil para outras lógicas futuras
+        // customTextInput.addEventListener('input', calculateTotalPrice); // Esta linha não é necessária para o cálculo do preço, pois o preço de "opinião" é fixo. Removida para evitar confusão.
 
-        // Listener para exibir/esconder o campo de texto customizado
+        // Listener para exibir/esconder o campo de texto customizado (e recalcular preço)
         document.querySelector('input[value="opiniao"]').addEventListener('change', calculateTotalPrice);
 
         // Enviar formulário
         squishyForm.addEventListener('submit', generateOrderDetails);
 
         // Calcular o preço inicial ao carregar a página
-        document.addEventListener('DOMContentLoaded', calculateTotalPrice);
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOM totalmente carregado!"); // DEBUG: Confirma que o DOM foi carregado
+            calculateTotalPrice();
+        });
     </script>
 </body>
 </html>
